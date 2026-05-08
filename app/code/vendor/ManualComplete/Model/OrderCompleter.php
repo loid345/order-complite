@@ -29,6 +29,10 @@ class OrderCompleter
             throw new \DomainException((string)__('The order cannot be invoiced.'));
         }
 
+        if (!$order->getIsVirtual()) {
+            throw new \DomainException((string)__('Only virtual/downloadable orders can be completed by this action.'));
+        }
+
         $invoice = $this->invoiceService->prepareInvoice($order);
 
         if (!$invoice->getTotalQty()) {
@@ -57,7 +61,7 @@ class OrderCompleter
         $order->addCommentToStatusHistory(
             (string)__('Order manually completed after offline payment. Invoice email was sent.'),
             false,
-            true
+            false
         );
         $this->orderRepository->save($order);
 

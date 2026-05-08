@@ -1,6 +1,6 @@
 # vendor_ManualComplete
 
-Magento 2 admin module for manually completing an order after an offline payment.
+Magento 2 admin module for manually completing a virtual/downloadable order after an offline payment.
 
 ## Module location
 
@@ -22,10 +22,13 @@ This location is better than the order grid because the administrator can review
 
 When an authorized administrator clicks **Complete**, the module:
 
-1. Creates an invoice for the order.
-2. Captures the invoice offline, so Magento treats the external payment as paid.
-3. Saves the invoice and order in one transaction.
-4. Sends the invoice email, which allows the standard digital/downloadable product delivery flow or connected key-delivery integrations to run from the invoice/order state change.
-5. Adds a visible order history comment.
+1. Allows the action only for orders that can still be invoiced.
+2. Allows the action only for virtual/downloadable orders, so physical/shippable orders are not accidentally closed without shipment.
+3. Creates an invoice for the order.
+4. Captures the invoice offline, so Magento treats the external payment as paid.
+5. Saves the invoice and order in one transaction.
+6. Sends the invoice email, which allows the standard digital/downloadable product delivery flow or connected key-delivery integrations to run from the invoice/order state change.
+7. Adds an internal order history comment that is not visible to the customer.
+8. Moves the order to the `complete` state when there is nothing left to invoice or ship.
 
-The button is hidden for canceled, closed, or already complete orders and requires the custom ACL permission **Manually Complete Orders**.
+The button is hidden for canceled, closed, already complete, non-virtual, or non-invoiceable orders and requires the custom ACL permission **Manually Complete Orders**.

@@ -65,6 +65,6 @@ class OrderViewButton
             return false;
         }
 
-        return $order->canInvoice() || $order->getTotalDue() > 0.0001;
+        return $order->canInvoice() && (bool)$order->getIsVirtual();
     }
 }

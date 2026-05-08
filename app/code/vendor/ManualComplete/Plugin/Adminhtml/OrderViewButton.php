@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OrderComplite\ManualComplete\Plugin\Adminhtml;
+namespace vendor\ManualComplete\Plugin\Adminhtml;
 
 use Magento\Backend\Model\UrlInterface;
 use Magento\Framework\AuthorizationInterface;
@@ -12,7 +12,7 @@ use Magento\Sales\Model\Order;
 
 class OrderViewButton
 {
-    private const ACL_RESOURCE = 'OrderComplite_ManualComplete::complete_order';
+    private const ACL_RESOURCE = 'vendor_ManualComplete::complete_order';
 
     public function __construct(
         private readonly AuthorizationInterface $authorization,

@@ -1,6 +1,14 @@
-# OrderComplite ManualComplete
+# vendor_ManualComplete
 
 Magento 2 admin module for manually completing an order after an offline payment.
+
+## Module location
+
+Place the module in the project-local code directory:
+
+`app/code/vendor/ManualComplete`
+
+The module registration name is `vendor_ManualComplete`, so Magento can load it from the `app/code/vendor` folder requested for this project.
 
 ## Button placement
 

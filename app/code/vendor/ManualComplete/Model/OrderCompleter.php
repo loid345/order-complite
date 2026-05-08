@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OrderComplite\ManualComplete\Model;
+namespace vendor\ManualComplete\Model;
 
 use Magento\Framework\DB\TransactionFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;

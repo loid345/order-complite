@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OrderComplite\ManualComplete\Controller\Adminhtml\Order;
+namespace vendor\ManualComplete\Controller\Adminhtml\Order;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -10,11 +10,11 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;
-use OrderComplite\ManualComplete\Model\OrderCompleter;
+use vendor\ManualComplete\Model\OrderCompleter;
 
 class Complete extends Action implements HttpPostActionInterface
 {
-    public const ADMIN_RESOURCE = 'OrderComplite_ManualComplete::complete_order';
+    public const ADMIN_RESOURCE = 'vendor_ManualComplete::complete_order';
 
     public function __construct(
         Context $context,

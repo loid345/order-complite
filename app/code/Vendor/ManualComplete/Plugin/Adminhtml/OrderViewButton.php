@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace vendor\ManualComplete\Plugin\Adminhtml;
+namespace Vendor\ManualComplete\Plugin\Adminhtml;
 
 use Magento\Backend\Model\UrlInterface;
 use Magento\Framework\AuthorizationInterface;
@@ -12,7 +12,7 @@ use Magento\Sales\Model\Order;
 
 class OrderViewButton
 {
-    private const ACL_RESOURCE = 'vendor_ManualComplete::complete_order';
+    private const ACL_RESOURCE = 'Vendor_ManualComplete::complete_order';
 
     public function __construct(
         private readonly AuthorizationInterface $authorization,
@@ -30,12 +30,12 @@ class OrderViewButton
         }
 
         $message = __('Create an offline invoice, mark this order as complete, and send the digital key email?');
-        $url = $this->urlBuilder->getUrl('ordercomplite/order/complete', [
+        $url = $this->urlBuilder->getUrl('ordercomplete/order/complete', [
             'order_id' => (int)$order->getEntityId(),
         ]);
 
         $subject->addButton(
-            'ordercomplite_manual_complete',
+            'ordercomplete_manual_complete',
             [
                 'label' => __('Complete'),
                 'class' => 'complete primary',

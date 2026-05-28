@@ -24,14 +24,19 @@ class OrderCompleter
     ) {
     }
 
+    public function canComplete(Order $order): bool
+    {
+        return (bool)$order->getIsVirtual() && $order->canInvoice();
+    }
+
     public function complete(Order $order): Invoice
     {
-        if (!$order->canInvoice()) {
-            throw new LocalizedException(__('The order cannot be invoiced.'));
-        }
-
         if (!$order->getIsVirtual()) {
             throw new LocalizedException(__('Only virtual/downloadable orders can be completed by this action.'));
+        }
+
+        if (!$order->canInvoice()) {
+            throw new LocalizedException(__('The order cannot be invoiced.'));
         }
 
         $invoice = $this->invoiceService->prepareInvoice($order);

@@ -9,6 +9,7 @@ use Magento\Framework\AuthorizationInterface;
 use Magento\Framework\Escaper;
 use Magento\Sales\Block\Adminhtml\Order\View;
 use Magento\Sales\Model\Order;
+use Vendor\ManualComplete\Model\OrderCompleter;
 
 class OrderViewButton
 {
@@ -17,7 +18,8 @@ class OrderViewButton
     public function __construct(
         private readonly AuthorizationInterface $authorization,
         private readonly UrlInterface $urlBuilder,
-        private readonly Escaper $escaper
+        private readonly Escaper $escaper,
+        private readonly OrderCompleter $orderCompleter
     ) {
     }
 
@@ -53,22 +55,7 @@ class OrderViewButton
 
     private function canShowButton(Order $order): bool
     {
-        if (!$this->authorization->isAllowed(self::ACL_RESOURCE)) {
-            return false;
-        }
-
-        if ($order->isCanceled() || $order->getState() === Order::STATE_CLOSED) {
-            return false;
-        }
-
-        if ($order->getState() === Order::STATE_COMPLETE) {
-            return false;
-        }
-
-        if (!(bool)$order->getIsVirtual()) {
-            return false;
-        }
-
-        return $order->canInvoice();
+        return $this->authorization->isAllowed(self::ACL_RESOURCE)
+            && $this->orderCompleter->canComplete($order);
     }
 }

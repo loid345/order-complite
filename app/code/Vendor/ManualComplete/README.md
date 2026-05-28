@@ -32,3 +32,10 @@ When an authorized administrator clicks **Complete**, the module:
 8. Moves the order to the `complete` state when there is nothing left to invoice or ship.
 
 The button is hidden for canceled, closed, already complete, non-virtual, or non-invoiceable orders and requires the custom ACL permission **Manually Complete Orders**.
+
+
+## Status visibility and false positives
+
+The button is not shown by a hard-coded list of order status labels. Instead, the UI calls the same eligibility rule as the server-side completion service: the order must be virtual/downloadable and Magento must report that it can still be invoiced.
+
+This means states such as payment review, holded, canceled, complete, and closed are filtered out when Magento reports them as non-invoiceable. States such as pending, pending payment, or processing can still be valid candidates if Magento allows invoicing, because this action is intended for an authorized administrator who has already verified the offline payment before creating the offline invoice.

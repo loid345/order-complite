@@ -40,7 +40,7 @@ class Complete extends Action implements HttpPostActionInterface
             $order = $this->orderRepository->get($orderId);
             $invoice = $this->orderCompleter->complete($order);
             $this->messageManager->addSuccessMessage(
-                __('Invoice #%1 was created offline. The order status was updated according to Magento workflow.', $invoice->getIncrementId())
+                __('Invoice #%1 was created offline. The order is moved to Complete when Magento has no remaining invoice/shipment operations.', $invoice->getIncrementId())
             );
         } catch (\Throwable $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());

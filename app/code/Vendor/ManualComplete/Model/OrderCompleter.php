@@ -26,13 +26,21 @@ class OrderCompleter
 
     public function canComplete(Order $order): bool
     {
-        return (bool)$order->getIsVirtual() && $order->canInvoice();
+        return (bool)$order->getIsVirtual()
+            && !$this->isBlockedPaymentState($order)
+            && $order->canInvoice();
     }
 
     public function complete(Order $order): Invoice
     {
         if (!$order->getIsVirtual()) {
             throw new LocalizedException(__('Only virtual/downloadable orders can be completed by this action.'));
+        }
+
+        if ($this->isBlockedPaymentState($order)) {
+            throw new LocalizedException(
+                __('Orders on hold or in payment review cannot be manually completed.')
+            );
         }
 
         if (!$order->canInvoice()) {
@@ -72,5 +80,22 @@ class OrderCompleter
         $this->orderRepository->save($order);
 
         return $invoice;
+    }
+
+    private function isBlockedPaymentState(Order $order): bool
+    {
+        $state = (string)$order->getState();
+
+        return $state === Order::STATE_HOLDED
+            || $state === Order::STATE_PAYMENT_REVIEW
+            || $order->canUnhold()
+            || $this->isHoldStatus((string)$order->getStatus());
+    }
+
+    private function isHoldStatus(string $status): bool
+    {
+        $normalizedStatus = strtolower($status);
+
+        return str_contains($normalizedStatus, 'hold');
     }
 }

@@ -36,6 +36,6 @@ The button is hidden for canceled, closed, already complete, non-virtual, or non
 
 ## Status visibility and false positives
 
-The button is not shown by a hard-coded list of order status labels. Instead, the UI calls the same eligibility rule as the server-side completion service: the order must be virtual/downloadable and Magento must report that it can still be invoiced.
+The button is not shown by a hard-coded list of order status labels. Instead, the UI calls the same eligibility rule as the server-side completion service: the order must be virtual/downloadable, must not be on hold or in payment review, and Magento must report that it can still be invoiced.
 
-This means states such as payment review, holded, canceled, complete, and closed are filtered out when Magento reports them as non-invoiceable. States such as pending, pending payment, or processing can still be valid candidates if Magento allows invoicing, because this action is intended for an authorized administrator who has already verified the offline payment before creating the offline invoice.
+Orders in an on-hold status are blocked even if a payment integration leaves the order invoiceable after a failed authorization, because completing that order would create an offline invoice for an unpaid payment attempt. Payment review, canceled, complete, and closed orders are also filtered out by the same shared rule. States such as pending, pending payment, or processing can still be valid candidates if Magento allows invoicing and the payment is not on hold/review, because this action is intended for an authorized administrator who has already verified the offline payment before creating the offline invoice.

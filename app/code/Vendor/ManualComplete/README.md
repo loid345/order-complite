@@ -1,4 +1,4 @@
-# vendor_ManualComplete
+# Vendor_ManualComplete
 
 Magento 2 admin module for manually completing a virtual/downloadable order after an offline payment.
 
@@ -6,9 +6,9 @@ Magento 2 admin module for manually completing a virtual/downloadable order afte
 
 Place the module in the project-local code directory:
 
-`app/code/vendor/ManualComplete`
+`app/code/Vendor/ManualComplete`
 
-The module registration name is `vendor_ManualComplete`, so Magento can load it from the `app/code/vendor` folder requested for this project.
+The module registration name is `Vendor_ManualComplete`, so Magento can load it from the `app/code/Vendor` folder requested for this project.
 
 ## Button placement
 

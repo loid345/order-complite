@@ -6,6 +6,6 @@ use Magento\Framework\Component\ComponentRegistrar;
 
 ComponentRegistrar::register(
     ComponentRegistrar::MODULE,
-    'vendor_ManualComplete',
+    'Vendor_ManualComplete',
     __DIR__
 );

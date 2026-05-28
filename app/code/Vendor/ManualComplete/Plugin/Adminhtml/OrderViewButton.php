@@ -37,7 +37,7 @@ class OrderViewButton
         $subject->addButton(
             'ordercomplete_manual_complete',
             [
-                'label' => __('Complete'),
+                'label' => __('Complete Order'),
                 'class' => 'complete primary',
                 'onclick' => sprintf(
                     "if (confirm('%s')) { var form = document.createElement('form'); form.method = 'post'; form.action = '%s'; var key = document.createElement('input'); key.type = 'hidden'; key.name = 'form_key'; key.value = window.FORM_KEY; form.appendChild(key); document.body.appendChild(form); form.submit(); }",

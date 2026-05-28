@@ -65,6 +65,10 @@ class OrderViewButton
             return false;
         }
 
-        return $order->canInvoice() && (bool)$order->getIsVirtual();
+        if (!(bool)$order->getIsVirtual()) {
+            return false;
+        }
+
+        return $order->canInvoice() || $order->getState() === Order::STATE_PAYMENT_REVIEW;
     }
 }

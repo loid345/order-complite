@@ -69,6 +69,6 @@ class OrderViewButton
             return false;
         }
 
-        return $order->canInvoice() || $order->getState() === Order::STATE_PAYMENT_REVIEW;
+        return $order->canInvoice();
     }
 }

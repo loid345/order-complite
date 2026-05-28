@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vendor\ManualComplete\Model;
 
 use Magento\Framework\DB\TransactionFactory;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Config as OrderConfig;
@@ -26,17 +27,17 @@ class OrderCompleter
     public function complete(Order $order): Invoice
     {
         if (!$order->canInvoice()) {
-            throw new \DomainException((string)__('The order cannot be invoiced.'));
+            throw new LocalizedException(__('The order cannot be invoiced.'));
         }
 
         if (!$order->getIsVirtual()) {
-            throw new \DomainException((string)__('Only virtual/downloadable orders can be completed by this action.'));
+            throw new LocalizedException(__('Only virtual/downloadable orders can be completed by this action.'));
         }
 
         $invoice = $this->invoiceService->prepareInvoice($order);
 
         if (!$invoice->getTotalQty()) {
-            throw new \DomainException((string)__('The invoice cannot be created without products.'));
+            throw new LocalizedException(__('The invoice cannot be created without products.'));
         }
 
         $invoice->setRequestedCaptureCase(Invoice::CAPTURE_OFFLINE);

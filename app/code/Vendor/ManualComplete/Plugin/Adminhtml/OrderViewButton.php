@@ -29,7 +29,7 @@ class OrderViewButton
             return;
         }
 
-        $message = __('Create an offline invoice, mark this order as complete, and send the digital key email?');
+        $message = __('Create an offline invoice and mark this order as complete? The key module will send its own email.');
         $url = $this->urlBuilder->getUrl('ordercomplete/order/complete', [
             'order_id' => (int)$order->getEntityId(),
         ]);

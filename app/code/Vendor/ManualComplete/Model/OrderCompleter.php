@@ -8,7 +8,6 @@ use Magento\Framework\DB\TransactionFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Config as OrderConfig;
-use Magento\Sales\Model\Order\Email\Sender\InvoiceSender;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Sales\Model\Service\InvoiceService;
 
@@ -16,7 +15,6 @@ class OrderCompleter
 {
     public function __construct(
         private readonly InvoiceService $invoiceService,
-        private readonly InvoiceSender $invoiceSender,
         private readonly OrderRepositoryInterface $orderRepository,
         private readonly TransactionFactory $transactionFactory,
         private readonly OrderConfig $orderConfig
@@ -49,8 +47,6 @@ class OrderCompleter
         $transaction->addObject($invoice->getOrder());
         $transaction->save();
 
-        $this->invoiceSender->send($invoice);
-
         $order = $invoice->getOrder();
 
         if (!$order->canInvoice() && !$order->canShip()) {
@@ -59,7 +55,7 @@ class OrderCompleter
         }
 
         $order->addCommentToStatusHistory(
-            (string)__('Order manually completed after offline payment. Invoice email was sent.'),
+            (string)__('Order manually completed after offline payment. Invoice email was not sent.'),
             false,
             false
         );

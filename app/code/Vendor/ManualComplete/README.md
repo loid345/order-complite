@@ -27,7 +27,7 @@ When an authorized administrator clicks **Complete**, the module:
 3. Creates an invoice for the order.
 4. Captures the invoice offline, so Magento treats the external payment as paid.
 5. Saves the invoice and order in one transaction.
-6. Sends the invoice email, which allows the standard digital/downloadable product delivery flow or connected key-delivery integrations to run from the invoice/order state change.
+6. Does not send Magento's invoice email; connected digital-key integrations can send their own message from the invoice/order state change.
 7. Adds an internal order history comment that is not visible to the customer.
 8. Moves the order to the `complete` state when there is nothing left to invoice or ship.
 
